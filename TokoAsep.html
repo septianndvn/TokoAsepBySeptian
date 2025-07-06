@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Asep - Belanja Kebutuhan Sehari-hari</title>
+    <style>
+
+        .modern-social-icons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modern-social-icons a img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain; /* atau "cover" jika butuh crop */
+    padding: 4px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.modern-social-icons a:hover img {
+    transform: scale(1.15);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+
+    .story-image {
+    background-image: url('images/TokoAsep.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    padding-top: 75%;
+    height: 300px;
+    border-radius: 15px;
+}
+
+        .story-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    align-items: center;
+    ...
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d5016;
+            background-color: #f8faf6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1d5d19 0%, #346042 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(45, 80, 22, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #a8d5ba;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a.active-nav {
+    background-color: rgba(255, 255, 255, 0.2); /* warna soft transparan */
+    border-radius: 999px; /* membuatnya oval */
+    transform: translateY(0); /* tidak perlu geser ke atas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* shadow halus */
+    padding: 0.5rem 1.2rem;
+    backdrop-filter: blur(4px); /* efek blur jika pakai transparansi */
+    transition: all 0.3s ease-in-out;
+}
+
+
+        .cart-icon {
+            background: linear-gradient(135deg, #6b8e23 0%, #518151 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+        }
+
+        .cart-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2d5016;
+            text-shadow: 2px 2px 4px rgba(45, 80, 22, 0.1);
+        }
+
+        /* Animasi untuk section */
+.section {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+}
+
+.section.active {
+    display: block;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi Slide dari Kiri */
+.section.slide-left {
+    transform: translateX(-50px);
+}
+.section.slide-left.active {
+    animation: slideInLeft 0.5s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animasi Zoom */
+.section.zoom {
+    transform: scale(0.95);
+}
+.section.zoom.active {
+    animation: zoomIn 0.5s ease-out forwards;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+        /* Hero Section */
+       .hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 0;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/header-bg.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(1px) brightness(0.5);
+    z-index: 0;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2; 
+    color: white;
+}
+
+
+       .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* ✅ Tambahan shadow */
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6); /* ✅ Tambahan shadow */
+}
+
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4fae4c 0%, #629362 100%);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(107, 142, 35, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(107, 142, 35, 0.4);
+        }
+
+        /* Best Sellers Section */
+        .best-sellers {
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+            padding: 4rem 0;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.1);
+        }
+
+        .best-sellers h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2d5016;
+            text-shadow: 2px 2px 4px rgba(45, 80, 22, 0.1);
+        }
+
+       .best-sellers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 800px; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+        .bestseller-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            z-index: 10;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+       .product-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ✅ ini penting agar gambar dan teks kembali ke tengah */
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(45, 80, 22, 0.2);
+            border-color: #a8d5ba;
+        }
+
+        .product-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2d5016;
+        }
+
+        .price-container {
+            margin-bottom: 1rem;
+        }
+
+        .original-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 0.2rem;
+        }
+
+        .product-card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6b8e23;
+        }
+
+        .promo-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+        }
+
+       .add-to-cart {
+    background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+    margin-top: auto; /* ✅ ini yang penting untuk menyamakan posisi tombol */
+}
+
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fdf8 50%, #e8f5e8 100%);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.1);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #6b8e23;
+            box-shadow: 0 15px 35px rgba(107, 142, 35, 0.25);
+            background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 50%, #d4edda 100%);
+        }
+
+        .category-card .category-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(45, 80, 22, 0.2));
+            transition: all 0.4s ease;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 6px 12px rgba(45, 80, 22, 0.3));
+        }
+
+        .category-card h3 {
+            color: #2d5016;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(45, 80, 22, 0.1);
+        }
+
+        .category-card p {
+            color: #4a7c59;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(107, 142, 35, 0.3);
+        }
+
+        .category-cta {
+            background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-cta {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+        }
+
+        /* About Section */
+.about-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+    border: 2px solid #e8f5e8;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(45, 80, 22, 0.15);
+    border-color: #6b8e23;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 8px 20px rgba(107, 142, 35, 0.3);
+}
+
+.feature-card h3 {
+    color: #2d5016;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: #4a7c59;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.feature-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #e8f5e8;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #6b8e23;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #4a7c59;
+    margin-top: 0.3rem;
+}
+
+/* Story Section */
+.story-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    align-items: center;
+    background: linear-gradient(135deg, #e8f5e8 0%, #a8d5ba 100%);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(45, 80, 22, 0.1);
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.5s ease;
+}
+
+.story-image:hover img {
+    transform: scale(1.03);
+}
+
+.story-content h3 {
+    font-size: 2rem;
+    color: #2d5016;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.story-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+    border-radius: 2px;
+}
+
+.story-content p {
+    color: #4a7c59;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.milestones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.milestone {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.milestone-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #6b8e23;
+    display: block;
+    line-height: 1;
+}
+
+.milestone-label {
+    font-size: 0.9rem;
+    color: #4a7c59;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .story-section {
+        padding: 2rem;
+    }
+    
+    .milestones {
+        grid-template-columns: 1fr;
+    }
+}
+        }
+
+        /* Review Section */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.review-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid #e8f5e8;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(45, 80, 22, 0.15);
+    border-color: #a8d5ba;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.reviewer-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #a8d5ba;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-info h3 {
+    color: #2d5016;
+    margin-bottom: 0.3rem;
+}
+
+.review-stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.review-content {
+    background: #f8faf6;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: #4a7c59;
+    border-left: 3px solid #6b8e23;
+}
+
+.review-product {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed #e8f5e8;
+}
+
+.review-product img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.review-product span {
+    font-size: 0.9rem;
+    color: #4a7c59;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+        }
+
+        .contact-info h3 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            color: #4a7c59;
+        }
+
+        .operating-hours {
+            background: linear-gradient(135deg, #e8f5e8 0%, #a8d5ba 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .operating-hours h4 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #4a7c59;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+        }
+
+        .map-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+        }
+
+        .map-container h3 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.1);
+        }
+
+        /* Cart */
+        .cart-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e8f5e8;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6b8e23;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e8f5e8;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d5016;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6b8e23;
+        }
+
+        .delivery-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .delivery-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-option:hover {
+            border-color: #6b8e23;
+            background-color: #f8faf6;
+        }
+
+        .delivery-option input[type="radio"] {
+            width: auto;
+            margin: 0;
+            accent-color: #6b8e23;
+        }
+
+        .order-summary {
+            background: linear-gradient(135deg, #e8f5e8 0%, #a8d5ba 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .order-summary h3 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #4a7c59;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2d5016;
+            border-top: 2px solid #6b8e23;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #6b8e23 0%, #8fbc8f 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(107, 142, 35, 0.3);
+        }
+
+        .place-order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(107, 142, 35, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2d5016 0%, #1a2f0c 100%);
+            color: #a8d5ba;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Hidden sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="c:\Users\user\Downloads\Toko Asep Logo.PNG" alt="Toko Asep Logo" style="width: 60px; height: auto;">
+                    Toko Asep
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#" onclick="showSection('products')">Products</a></li>
+                        <li><a href="#" onclick="showSection('categories')">Categories</a></li>
+                        <li><a href="#" onclick="showSection('about')">About</a></li>
+                        <li><a href="#" onclick="showSection('review')">Review</a></li>
+                        <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="cart-icon" onclick="showSection('cart')">🛒 Cart (<span id="cart-count">0</span>)</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="container">
+                    <h1>Selamat Datang di Toko Asep</h1>
+                    <p>Belanja kebutuhan sehari-hari dengan Lengkap, Murah dan Dekat dengan anda</p>
+                    <a href="#" class="cta-button" onclick="showSection('products')">Mulai Belanja</a>
+                </div>
+            </div>
+
+            <!-- Best Sellers Section -->
+            <div class="container">
+                <div class="best-sellers">
+                    <h2>🏆 Produk Best Seller</h2>
+                    <div class="best-sellers-grid" id="best-sellers-container">
+                        <!-- Best sellers will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="section">
+            <div class="container">
+                <h2 class="section-title">Produk Kami</h2>
+                <div class="products-grid" id="products-container">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="section">
+            <div class="container">
+                <h2 class="section-title">Kategori Produk</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterProducts('sembako')">
+                        <div class="category-badge" id="sembako-count">4 Produk</div>
+                        <span class="category-icon">🌾</span>
+                        <h3>Sembako</h3>
+                        <p>Beras, Gula, Garam, Tepung berkualitas untuk kebutuhan pokok sehari-hari</p>
+                        <div class="category-cta">Lihat Produk</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('minyak')">
+                        <div class="category-badge" id="minyak-count">1 Produk</div>
+                        <span class="category-icon">🛢️</span>
+                        <h3>Minyak & Bumbu</h3>
+                        <p>Minyak Goreng berkualitas dan berbagai bumbu masak pilihan</p>
+                        <div class="category-cta">Lihat Produk</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('protein')">
+                        <div class="category-badge" id="protein-count">3 Produk</div>
+                        <span class="category-icon">🥩</span>
+                        <h3>Protein</h3>
+                        <p>Daging segar, telur, susu untuk nutrisi keluarga yang optimal</p>
+                        <div class="category-cta">Lihat Produk</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('instan')">
+                        <div class="category-badge" id="instan-count">1 Produk</div>
+                        <span class="category-icon">🍜</span>
+                        <h3>Makanan Instan</h3>
+                        <p>Mie instan dan makanan siap saji untuk kebutuhan praktis</p>
+                        <div class="category-cta">Lihat Produk</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <!-- About Section -->
+<section id="about" class="section">
+    <div class="container">
+        <h2 class="section-title">Tentang Toko Asep</h2>
+        <p class="section-subtitle" style="text-align: center; color: #4a7c59; margin-bottom: 3rem; font-size: 1.2rem;">
+            Melayani pelanggan dengan produk berkualitas sejak bertahun-tahun
+        </p>
+
+        <div class="about-features">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span>🚚</span>
+                </div>
+                <h3>Pengiriman Cepat</h3>
+                <p>Layanan antar barang ke rumah dengan cepat dan aman. Pesan sebelum jam 3 sore bisa dapat hari itu juga!</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1-2</span>
+                        <span class="stat-label">Jam Sampai</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">On Time</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span>💰</span>
+                </div>
+                <h3>Harga Terjangkau</h3>
+                <p>Harga kompetitif dengan kualitas terbaik untuk semua kalangan. Kami jamin harga termurah di wilayah Depok!</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Produk Murah</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">Lebih Hemat</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span>⭐</span>
+                </div>
+                <h3>Kualitas Terjamin</h3>
+                <p>Produk kami selalu fresh dan berkualitas. Tidak puas? Kami ganti atau uang kembali!</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Asli</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Pelanggan Setia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Story -->
+        <div class="story-section">
+            <div class="story-image"></div>
+            <div class="story-content">
+                <h3>Cerita Kami</h3>
+                <p>Toko Asep dimulai dari warung kecil di Depok tahun 2010. Berkat dukungan pelanggan setia, kami berkembang menjadi toko sembako terpercaya di wilayah Sawangan.</p>
+                <p>Kini kami memiliki gudang penyimpanan modern dan sistem distribusi yang efisien untuk memastikan produk selalu fresh sampai ke tangan Anda.</p>
+                <div class="milestones">
+                    <div class="milestone">
+                        <span class="milestone-number">13+</span>
+                        <span class="milestone-label">Tahun Berpengalaman</span>
+                    </div>
+                    <div class="milestone">
+                        <span class="milestone-number">1000+</span>
+                        <span class="milestone-label">Produk Tersedia</span>
+                    </div>
+                    <div class="milestone">
+                        <span class="milestone-number">24/7</span>
+                        <span class="milestone-label">Layanan Pelanggan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Review Section -->
+<section id="review" class="section">
+    <div class="container">
+        <h2 class="section-title">Apa Kata Pelanggan Kami</h2>
+        <p style="text-align: center; color: #4a7c59; margin-bottom: 3rem;">Berdasarkan 128+ ulasan dari pelanggan setia Toko Asep</p>
+        
+        <div class="reviews-grid">
+            <!-- Review 1 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Pelanggan" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>Ibu Michi</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="review-content">
+                    <p>"Berasnya enak banget masakannya, harganya juga murah dibanding tempat lain. Aku beli yang Setra Ramos 5kg, padat dan wangi. Toko Asep selalu jadi langganan buat belanja bulanan!"</p>
+                </div>
+                <div class="review-product">
+                    <img src="https://image.astronauts.cloud/product-images/2025/1/FSBerasSetraWangi5kg_fe5707d8-ab4e-47c1-ba89-cf1ecddc1659_900x900.jpg" alt="Produk">
+                    <span>Beras Setra Wangi 5kg</span>
+                </div>
+            </div>
+            
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Pelanggan" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>Kang Aseop</h3>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+                <div class="review-content">
+                    <p>"Minyak gorengnya selalu fresh, ga pernah tengik. Kemarin beli 3 botol sekaligus soalnya lagi promo. Kurir tokonya juga ramah, sampe depan rumah bawa2 belanjaan."</p>
+                </div>
+                <div class="review-product">
+                    <img src="https://arti-assets.sgp1.cdn.digitaloceanspaces.com/renyswalayanku/products/d699f386-4f9c-4666-9343-b2174b37a717.jpg" alt="Produk">
+                    <span>Minyak Goreng Rizki 800ml</span>
+                </div>
+            </div>
+            
+            <!-- Review 3 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Pelanggan" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>Mbak Aiska</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="review-content">
+                    <p>"Daging sapinya fresh banget! Kemarin masak rendang buat lebaran, keluarga pada ngiler semua. Harganya juga lebih murah 20rb drpd supermarket. Next belanja lg disini deh."</p>
+                </div>
+                <div class="review-product">
+                    <img src="https://deratufood.com/wp-content/uploads/2024/05/WhatsApp-Image-2024-05-25-at-21.32.39-1.jpeg" alt="Produk">
+                    <span>Daging Sapi Bravo 1kg</span>
+                </div>
+            </div>
+            
+            <!-- Review 4 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Pelanggan" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>Mas Adam</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="review-content">
+                    <p>"Gula pyramidnya enak ga terlalu manis, cocok buat saya yg lagi diet. Kemasan juga rapi, ga remuk2 kayak di tempat lain. Pelayanannya cepet bgt, baru order 1 jam udah sampe!"</p>
+                </div>
+                <div class="review-product">
+                    <img src="https://arti-assets.sgp1.cdn.digitaloceanspaces.com/megaswalayan/products/221b702d-b76e-4517-b7f9-a5f078c27a4d.jpg" alt="Produk">
+                    <span>Gula Piramid Kristal 1kg</span>
+                </div>
+            </div>
+            
+            <!-- Review 5 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Pelanggan" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>Bu Ireng</h3>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+                <div class="review-content">
+                    <p>"Telur ayam kampungnya besar2 dan fresh. Anak2 suka banget dibuat telur ceplok. Cuma kemarin ada 1 butir yg pecah, mungkin krn pengirimannya agak kenceng. Tapi overall puas sih!"</p>
+                </div>
+                <div class="review-product">
+                    <img src="https://sehatindofarm.com/wp-content/uploads/2024/01/group-32-65b0792117f6b.webp" alt="Produk">
+                    <span>Telur Ayam Kampung IndoFarm</span>
+                </div>
+            </div>
+            
+            <!-- Review 6 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="https://randomuser.me/api/portraits/men/71.jpg" alt="Pelanggan" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <h3>Om Daffa</h3>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="review-content">
+                    <p>"Mie suskesnya enak bgt! Rasa kari ayamnya autentik, anak kos kaya gw bisa bertahan seminggu cuma modal ini + telor. Harganya juga murah meriah, ga ngecewain dah pokoknya."</p>
+                </div>
+                <div class="review-product">
+                    <img src="https://arti-assets.sgp1.cdn.digitaloceanspaces.com/renyswalayanku/products/191b6d88-4bdb-480c-b650-e6ddf239ae2b.jpg" alt="Produk">
+                    <span>Mie Suskes Isi 2 Rasa Kari Ayam</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>📍 Informasi Kontak</h3>
+                        <p><strong>Alamat:</strong> Jl. Raya Sawangan, Depok, Jawa Barat</p>
+                        <p><strong>Telepon:</strong> +62 812-8861-9096</p>
+                        <p><strong>Email:</strong> info@tokoasep.com</p>
+                        
+                        <div class="operating-hours">
+                            <h4>🕒 Jam Operasional</h4>
+                            <div class="hours-item">
+                                <span><strong>Senin - Jumat:</strong></span>
+                                <span>07:00 - 22:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span><strong>Sabtu - Minggu:</strong></span>
+                                <span>08:00 - 21:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span><strong>Hari Libur Nasional:</strong></span>
+                                <span>09:00 - 20:00</span>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 2rem; margin-bottom: 1rem; color: #2d5016;">🌐 Ikuti Kami:</h4>
+                      <div class="modern-social-icons">
+    <a href="https://www.facebook.com/share/16ksgSDWK4/?mibextid=qi2Omg" target="_blank"><img src="images/facebook.png" alt="Facebook" title="Facebook"></a>
+    <a href="https://www.instagram.com/sptian_dvnsyah?igsh=MXVobWZ0dHdtMTd6ZA==" target="_blank"><img src="images/instagram.png" alt="Instagram" title="Instagram"></a>
+    <a href="https://x.com/septiandvn?t=mIxUeUed89Tm9-7CJ363iw&s=09" target="_blank"><img src="images/Twitter.png" alt="Twitter" title="Twitter"></a>
+    <a href="info@tokoasep.com"><img src="images/Email.png" alt="Email" title="Email"></a>
+    <a href="https://wa.me/6281288619096" target="_blank"><img src="images/whatsapp.png" alt="WhatsApp" title="WhatsApp"></a>
+</div>
+
+
+                    </div>
+                    
+                    <div class="map-container">
+                        <h3>📍 Lokasi Toko</h3>
+                        <p style="margin-bottom: 1rem; color: #4a7c59;">Jl. Raya Sawangan, Depok, Jawa Barat</p>
+                        <iframe 
+                            class="map-frame"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15859.234567890123!2d106.7745!3d-6.4025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c1c5c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sJl.%20Raya%20Sawangan%2C%20Sawangan%2C%20Kota%20Depok%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1234567890123!5m2!1sid!2sid"
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #4a7c59;">
+                            <strong>Petunjuk Arah:</strong> Toko Asep terletak di Jl. Raya Sawangan, mudah diakses dengan kendaraan pribadi maupun transportasi umum. Tersedia area parkir yang luas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Section -->
+        <section id="cart" class="section">
+            <div class="container">
+                <h2 class="section-title">Keranjang Belanja</h2>
+                <div class="cart-section">
+                    <div id="cart-items">
+                        <p style="text-align: center; color: #4a7c59; font-style: italic;">Keranjang belanja kosong</p>
+                    </div>
+                    <div class="cart-total" id="cart-total" style="display: none;">
+                        Total: Rp 0
+                    </div>
+                </div>
+
+                <!-- Checkout Form -->
+                <div class="checkout-form" id="checkout-form" style="display: none;">
+                    <h3 style="color: #2d5016; margin-bottom: 2rem;">📋 Informasi Pengiriman</h3>
+                    
+                    <div class="form-group">
+                        <label for="customer-name">Nama Lengkap:</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-phone">Nomor Handphone:</label>
+                        <input type="tel" id="customer-phone" placeholder="08xxxxxxxxxx" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-email">Email:</label>
+                        <input type="email" id="customer-email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivery-address">Alamat Lengkap:</label>
+                        <textarea id="delivery-address" rows="3" placeholder="Masukkan alamat lengkap untuk pengiriman" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pilih Kurir Pengiriman:</label>
+                        <div class="delivery-options">
+                            <div class="delivery-option">
+                                <input type="radio" id="kurir-toko" name="courier" value="toko" checked>
+                                <label for="kurir-toko">
+                                    <strong>Kurir Toko</strong><br>
+                                    <small>Gratis (Radius 5km) - 1-2 jam</small>
+                                </label>
+                            </div>
+                            <div class="delivery-option">
+                                <input type="radio" id="gojek" name="courier" value="gojek">
+                                <label for="gojek">
+                                    <strong>GoSend</strong><br>
+                                    <small>Rp 15.000 - 30-60 menit</small>
+                                </label>
+                            </div>
+                            <div class="delivery-option">
+                                <input type="radio" id="grab" name="courier" value="grab">
+                                <label for="grab">
+                                    <strong>GrabExpress</strong><br>
+                                    <small>Rp 18.000 - 30-60 menit</small>
+                                </label>
+                            </div>
+                            <div class="delivery-option">
+                                <input type="radio" id="jne" name="courier" value="jne">
+                                <label for="jne">
+                                    <strong>JNE Regular</strong><br>
+                                    <small>Rp 12.000 - 1-2 hari</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment-method">Metode Pembayaran:</label>
+                        <select id="payment-method" required>
+                            <option value="">Pilih metode pembayaran</option>
+                            <option value="cod">Bayar di Tempat (COD)</option>
+                            <option value="transfer">Transfer Bank</option>
+                            <option value="ewallet">E-Wallet (OVO/GoPay/DANA)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="order-notes">Catatan Pesanan (Opsional):</label>
+                        <textarea id="order-notes" rows="2" placeholder="Tambahkan catatan khusus untuk pesanan Anda"></textarea>
+                    </div>
+
+                    <div class="order-summary">
+                        <h3>📊 Ringkasan Pesanan</h3>
+                        <div class="summary-item">
+                            <span>Subtotal Produk:</span>
+                            <span id="subtotal">Rp 0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Biaya Pengiriman:</span>
+                            <span id="shipping-cost">Gratis</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total Pembayaran:</span>
+                            <span id="final-total">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button class="place-order-btn" onclick="placeOrder()">
+                        🛒 Pesan Sekarang
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Toko Asep. All rights reserved. | Jl. Raya Sawangan, Depok, Jawa Barat</p>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Beras Setra Wangi  5kg",
+                price: 75000,
+                originalPrice: 85000,
+                category: "sembako",
+                image: "https://image.astronauts.cloud/product-images/2025/1/FSBerasSetraWangi5kg_fe5707d8-ab4e-47c1-ba89-cf1ecddc1659_900x900.jpg",
+                isPromo: true,
+                isBestSeller: true
+            },
+            {
+                id: 2,
+                name: "Minyak Goreng Rizki 800ml",
+                price: 16400,
+                category: "minyak",
+                image: "https://arti-assets.sgp1.cdn.digitaloceanspaces.com/renyswalayanku/products/d699f386-4f9c-4666-9343-b2174b37a717.jpg",
+                isBestSeller: true
+            },
+            {
+                id: 3,
+                name: "Gula Piramid Kristal 1kg",
+                price: 23800,
+                originalPrice: 26000,
+                category: "sembako",
+                image: "https://arti-assets.sgp1.cdn.digitaloceanspaces.com/megaswalayan/products/221b702d-b76e-4517-b7f9-a5f078c27a4d.jpg",
+                isPromo: true,
+                isBestSeller: true
+            },
+            {
+                id: 4,
+                name: "Mie Suskes Isi 2 Rasa Kari Ayam",
+                price: 3600,
+                category: "instan",
+                image: "https://arti-assets.sgp1.cdn.digitaloceanspaces.com/renyswalayanku/products/191b6d88-4bdb-480c-b650-e6ddf239ae2b.jpg",
+                isBestSeller: true
+            },
+            {
+                id: 5,
+                name: "Daging Sapi Bravo 1kg",
+                price: 130300,
+                originalPrice: 152300,
+                category: "protein",
+                image: "https://deratufood.com/wp-content/uploads/2024/05/WhatsApp-Image-2024-05-25-at-21.32.39-1.jpeg",
+                isPromo: true
+            },
+            {
+                id: 6,
+                name: "Telur Ayam Kampung IndoFarm Isi 20 Butir",
+                price: 76700,
+                category: "protein",
+                image: "https://sehatindofarm.com/wp-content/uploads/2024/01/group-32-65b0792117f6b.webp"
+            },
+            {
+                id: 7,
+                name: "Garam Sarinah 250g",
+                price: 2500,
+                category: "sembako",
+                image: "https://down-id.img.susercontent.com/file/id-11134207-7r98t-lvd0rvx4vu1efd"
+            },
+            {
+                id: 8,
+                name: "Susu Milku Coklat 200ml",
+                price: 3500,
+                originalPrice: 4200,
+                category: "protein",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYv4weyEWL4pbsTZDkpg4-UWs1x0Q2_7i6JA&s",
+                isPromo: true
+            },
+            {
+                id: 9,
+                name: "Tepung Terigu Hana Emas 1kg",
+                price: 18700,
+                category: "sembako",
+                image: "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/103/MTA-180541956/hana_emas_bungasari_hana_emas_tepung_terigu_1_kg_full01_df143dfa.jpg"
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentProducts = products;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+            displayBestSellers();
+            updateCartCount();
+            updateCartDisplay();
+            updateCategoryCount();
+            
+            // Update shipping cost when courier changes
+            document.querySelectorAll('input[name="courier"]').forEach(radio => {
+                radio.addEventListener('change', updateShippingCost);
+            });
+        });
+
+        // Update category count based on actual products
+        function updateCategoryCount() {
+            const categories = ['sembako', 'minyak', 'protein', 'instan'];
+            categories.forEach(category => {
+                const count = products.filter(product => product.category === category).length;
+                const element = document.getElementById(`${category}-count`);
+                if (element) {
+                    element.textContent = `${count} Produk`;
+                }
+            });
+        }
+
+        // Display best sellers
+       function displayBestSellers() {
+    // Ambil hanya 4 produk best seller pertama
+    const bestSellers = products.filter(product => product.isBestSeller).slice(0, 4);
+    const container = document.getElementById('best-sellers-container');
+    container.innerHTML = '';
+    
+    bestSellers.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        
+        let priceHTML = '';
+        if (product.isPromo && product.originalPrice) {
+            priceHTML = `
+                <div class="price-container">
+                    <div class="original-price">Rp ${product.originalPrice.toLocaleString('id-ID')}</div>
+                    <div class="price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                </div>
+            `;
+        } else {
+            priceHTML = `<div class="price">Rp ${product.price.toLocaleString('id-ID')}</div>`;
+        }
+        
+        productCard.innerHTML = `
+            ${product.isBestSeller ? '<div class="bestseller-badge">🏆 Best Seller</div>' : ''}
+            ${product.isPromo ? '<div class="promo-badge">PROMO!</div>' : ''}
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            ${priceHTML}
+            <button class="add-to-cart" onclick="addToCart(${product.id})">
+                Tambah ke Keranjang
+            </button>
+        `;
+        container.appendChild(productCard);
+    });
+}
+
+        // Navigation
+        function showSection(sectionId) {
+    // Dapatkan semua section dan nav links
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('nav a');
+    
+    // Animasi fade out section yang aktif
+    const activeSection = document.querySelector('.section.active');
+    if (activeSection) {
+        activeSection.style.opacity = '0';
+        activeSection.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            activeSection.classList.remove('active');
+        }, 300); // Sesuaikan dengan durasi transisi
+    }
+    
+    // Set timeout untuk memastikan animasi fade out selesai sebelum fade in
+    setTimeout(() => {
+        // Tambahkan class active ke section baru
+        document.getElementById(sectionId).classList.add('active');
+        
+        // Update nav link active state
+        navLinks.forEach(link => {
+            link.classList.remove('active-nav');
+            if (link.getAttribute('onclick').includes(sectionId)) {
+                link.classList.add('active-nav');
+            }
+        });
+        
+        if (sectionId === 'products') {
+            displayProducts(currentProducts);
+        }
+    }, 300);
+}
+
+        // Display products
+        function displayProducts(productsToShow) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            
+            productsToShow.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                let priceHTML = '';
+                if (product.isPromo && product.originalPrice) {
+                    priceHTML = `
+                        <div class="price-container">
+                            <div class="original-price">Rp ${product.originalPrice.toLocaleString('id-ID')}</div>
+                            <div class="price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                        </div>
+                    `;
+                } else {
+                    priceHTML = `<div class="price">Rp ${product.price.toLocaleString('id-ID')}</div>`;
+                }
+                
+                productCard.innerHTML = `
+                    ${product.isBestSeller ? '<div class="bestseller-badge">🏆 Best Seller</div>' : ''}
+                    ${product.isPromo ? '<div class="promo-badge">PROMO!</div>' : ''}
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    ${priceHTML}
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                        Tambah ke Keranjang
+                    </button>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+
+        // Filter products by category
+        function filterProducts(category) {
+            currentProducts = products.filter(product => product.category === category);
+            showSection('products');
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartDisplay();
+            
+            // Show notification
+            alert(`${product.name} ditambahkan ke keranjang!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const checkoutForm = document.getElementById('checkout-form');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #4a7c59; font-style: italic;">Keranjang belanja kosong</p>';
+                cartTotal.style.display = 'none';
+                checkoutForm.style.display = 'none';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = '';
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>Rp ${item.price.toLocaleString('id-ID')} x ${item.quantity}</p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <button onclick="updateQuantity(${item.id}, -1)" style="background: #6b8e23; color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer;">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" style="background: #6b8e23; color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer;">+</button>
+                            </div>
+                            <strong>Rp ${itemTotal.toLocaleString('id-ID')}</strong>
+                            <button onclick="removeFromCart(${item.id})" style="background: #dc3545; color: white; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer;">🗑️</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                
+                cartTotal.textContent = `Total: Rp ${total.toLocaleString('id-ID')}`;
+                cartTotal.style.display = 'block';
+                checkoutForm.style.display = 'block';
+                
+                updateOrderSummary();
+            }
+        }
+
+        function updateShippingCost() {
+            const selectedCourier = document.querySelector('input[name="courier"]:checked').value;
+            const shippingCostElement = document.getElementById('shipping-cost');
+            let shippingCost = 0;
+            
+            switch(selectedCourier) {
+                case 'toko':
+                    shippingCost = 0;
+                    shippingCostElement.textContent = 'Gratis';
+                    break;
+                case 'gojek':
+                    shippingCost = 15000;
+                    shippingCostElement.textContent = 'Rp 15.000';
+                    break;
+                case 'grab':
+                    shippingCost = 18000;
+                    shippingCostElement.textContent = 'Rp 18.000';
+                    break;
+                case 'jne':
+                    shippingCost = 12000;
+                    shippingCostElement.textContent = 'Rp 12.000';
+                    break;
+            }
+            
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const selectedCourier = document.querySelector('input[name="courier"]:checked').value;
+            let shippingCost = 0;
+            
+            switch(selectedCourier) {
+                case 'gojek': shippingCost = 15000; break;
+                case 'grab': shippingCost = 18000; break;
+                case 'jne': shippingCost = 12000; break;
+            }
+            
+            const finalTotal = subtotal + shippingCost;
+            
+            document.getElementById('subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('final-total').textContent = `Rp ${finalTotal.toLocaleString('id-ID')}`;
+        }
+
+        function downloadOrderAsCSV() {
+    let csv = 'Nama Produk,Jumlah,Harga Satuan,Harga Total\n';
+    cart.forEach(item => {
+        csv += `${item.name},${item.quantity},${item.price},${item.price * item.quantity}\n`;
+    });
+
+    // Tambahkan informasi pembeli
+    const name = document.getElementById('customer-name').value;
+    const phone = document.getElementById('customer-phone').value;
+    const address = document.getElementById('delivery-address').value;
+    const payment = document.getElementById('payment-method').value;
+    const notes = document.getElementById('order-notes').value;
+
+    csv += `\nNama Pemesan:,${name}\nNomor HP:,${phone}\nAlamat:,${address}\nPembayaran:,${payment}\nCatatan:,${notes}\n`;
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `pesanan_${name}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+       function placeOrder() {
+    const name = document.getElementById('customer-name').value;
+    const phone = document.getElementById('customer-phone').value;
+    const address = document.getElementById('delivery-address').value;
+    const paymentMethod = document.getElementById('payment-method').value;
+
+    if (!name || !phone || !address || !paymentMethod) {
+        alert('Mohon lengkapi semua data yang diperlukan!');
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert('Keranjang belanja kosong!');
+        return;
+    }
+
+    alert('Pesanan berhasil dibuat! Kami akan segera menghubungi Anda untuk konfirmasi.');
+
+    // ✅ Inilah bagian penting:
+    downloadOrderAsCSV();
+
+    // Kosongkan keranjang dan reset form
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartDisplay();
+
+    document.getElementById('customer-name').value = '';
+    document.getElementById('customer-phone').value = '';
+    document.getElementById('customer-email').value = '';
+    document.getElementById('delivery-address').value = '';
+    document.getElementById('payment-method').value = '';
+    document.getElementById('order-notes').value = '';
+}
+
+    </script>
+</body>
+</html>
